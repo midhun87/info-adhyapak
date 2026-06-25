@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digi Adhyapak | The Ultimate Learning & Assessment Ecosystem</title>
+    <link rel="icon" href="https://www.digiadhyapak.com/static/favicon/favicon.svg" type="image/svg+xml">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config & Custom Styles -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        xeta: {
+                            500: '#6366f1', // Indigo
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hide scrollbar for clean UI but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Initial states for GSAP */
+        .gsap-reveal { opacity: 0; visibility: hidden; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white transition-colors duration-300">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <img src="https://www.digiadhyapak.com/static/favicon/favicon.svg" alt="Digi Adhyapak Logo" class="h-10 w-10">
+                    <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">Digi Adhyapak</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Platform</a>
+                    <a href="#faculty" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Experts</a>
+                    <a href="#features" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Features</a>
+                    <a href="#ecosystem" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Ecosystem</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Theme">
+                        <i class="ph ph-moon text-xl dark:hidden"></i>
+                        <i class="ph ph-sun text-xl hidden dark:block text-yellow-400"></i>
+                    </button>
+                    <a href="https://digiadhyapak.com" target="_blank" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-slate-900 hover:bg-brand-600 dark:bg-brand-600 dark:hover:bg-brand-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                        Access Platform
+                    </a>
+                    
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden p-2 rounded-md text-slate-400 hover:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Decorative Blobs -->
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-brand-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-blob dark:bg-brand-900 dark:opacity-20"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-xeta-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-2000 dark:bg-xeta-900 dark:opacity-20"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-4000 dark:bg-purple-900 dark:opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                
+                <!-- Hero Content -->
+                <div class="text-center lg:text-left hero-content">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-sm font-semibold mb-6">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
+                        </span>
+                        A prestigious launch by Xeta Tech Solutions
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl font-display font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
+                        The Ultimate <br>
+                        <span class="text-gradient bg-gradient-to-r from-brand-600 to-xeta-500">Gateway to GATE</span>
+                        <br> & Beyond.
+                    </h1>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto lg:mx-0">
+                        More than just exam prep. Digi Adhyapak is a comprehensive Learning Management System equipped with an integrated coding compiler, advanced proctoring, and elite academic content.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://digiadhyapak.com" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-full text-white bg-brand-600 hover:bg-brand-500 shadow-lg shadow-brand-500/30 transition-all transform hover:-translate-y-1">
+                            Explore Platform <i class="ph-bold ph-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#features" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-full text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-700 transition-all">
+                            View Features
+                        </a>
+                    </div>
+                    
+                    <div class="mt-10 flex items-center justify-center lg:justify-start gap-6 text-sm text-slate-500 dark:text-slate-400 font-medium">
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-green-500 text-lg"></i> AI Proctored</div>
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-green-500 text-lg"></i> Integrated IDE</div>
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-green-500 text-lg"></i> Institutional LMS</div>
+                    </div>
+                </div>
+
+                <!-- Hero Image/Graphic -->
+                <div class="relative lg:ml-auto hero-image-container animate-float">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/20 to-xeta-500/20 rounded-3xl transform rotate-3 scale-105"></div>
+                    <img src="https://res.cloudinary.com/dzuxwvamy/image/upload/v1782406416/Screenshot_2026-06-25_222114_icurf2.png" alt="Digi Adhyapak Dashboard Interface" class="relative rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full object-cover z-10">
+                    
+                    <!-- Floating UI Element 1 -->
+                    <div class="absolute -left-8 top-1/4 glass-card p-4 rounded-2xl flex items-center gap-4 shadow-xl z-20 animate-float" style="animation-delay: 1s;">
+                        <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center">
+                            <i class="ph-bold ph-chart-line-up text-green-600 dark:text-green-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Performance</p>
+                            <p class="text-xs text-slate-500">Tracking Active</p>
+                        </div>
+                    </div>
+
+                    <!-- Floating UI Element 2 -->
+                    <div class="absolute -right-6 bottom-1/4 glass-card p-4 rounded-2xl flex items-center gap-4 shadow-xl z-20 animate-float" style="animation-delay: 2s;">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                            <i class="ph-bold ph-code text-brand-600 dark:text-brand-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Live Compiler</p>
+                            <p class="text-xs text-slate-500">Ready</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="gsap-content-left">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <img src="https://res.cloudinary.com/dpz44zf0z/image/upload/v1760704788/XETA_SOLUTIONS_LOGO_bcsbwh.png" alt="Xeta Tech Solutions" class="h-6 object-contain">
+                        </div>
+                        <span class="h-4 w-px bg-slate-300 dark:bg-slate-700"></span>
+                        <h2 class="text-brand-600 dark:text-brand-400 font-semibold tracking-wide uppercase text-sm">The Visionary Backing</h2>
+                    </div>
+                    <h3 class="text-3xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 leading-tight">Engineered by <br><span class="text-gradient bg-gradient-to-r from-xeta-500 to-brand-500">Xeta Tech Solutions</span></h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed text-lg">
+                        Digi Adhyapak isn't just a standalone application; it's a critical, high-performance node within the massive 12+ product ecosystem engineered by Xeta Tech Solutions. As a rapidly scaling, leading technology company, Xeta seamlessly blends product innovation with premium service delivery.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        Founded by <strong class="text-slate-900 dark:text-white">Mr. Midhun Kotagiri</strong>—a passionate technical trainer, public speaker, and tech enthusiast who has personally mentored over 1000+ professionals nationwide. Along with his dedicated team, he is building the ultimate Xeta Tech Ecosystem. This vision is laser-focused on solving deep-rooted industry problems: revolutionizing learning methodologies, optimizing corporate hiring pipelines, and empowering individual learners to achieve unparalleled success.
+                    </p>
+                    <div class="flex items-center gap-5 bg-slate-50 dark:bg-slate-800/80 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 inline-flex w-full sm:w-auto hover:shadow-xl hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 group">
+                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden border-2 border-brand-500 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                           <img src="https://digiadhyapak.com/static/images/team/midhun.jpg" alt="Midhun Kotagiri" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-white text-lg group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Midhun Kotagiri</p>
+                            <p class="text-sm text-brand-600 dark:text-brand-400 font-medium">Founder & CEO, Xeta Tech Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-6 gsap-content-right">
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        <div class="w-14 h-14 bg-brand-100 dark:bg-brand-900/50 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ph-duotone ph-buildings text-3xl text-brand-500"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-3 text-lg">Corporate Solutions</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">End-to-end software solutions designed to streamline institutional hiring, training, and talent acquisition.</p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 mt-12 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        <div class="w-14 h-14 bg-xeta-100 dark:bg-xeta-900/50 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ph-duotone ph-graph text-3xl text-xeta-500"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-3 text-lg">12+ Tech Products</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">A massive, scalable technological ecosystem addressing multifaceted digital challenges.</p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/50 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ph-duotone ph-users-three text-3xl text-purple-500"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-3 text-lg">1000+ Trainers</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">A robust network built on nationwide technical expertise and relentless passion for education.</p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 mt-12 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        <div class="w-14 h-14 bg-green-100 dark:bg-green-900/50 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ph-duotone ph-shield-check text-3xl text-green-500"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-3 text-lg">End-to-End Pipeline</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Solving every complex problem from initial learning stages to final assessment and placement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faculty" class="py-32 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-xeta-500/5 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 gsap-fade-up">
+                <h2 class="text-brand-600 dark:text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Unmatched Academic Excellence</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-6">Guided by Industry Titans</h3>
+                <p class="text-lg text-slate-600 dark:text-slate-400">
+                    We believe in uncompromising quality. That's why our GATE curriculum begins with absolute dominance in Aerospace Engineering, bringing you exclusive, meticulously crafted content from the most distinguished minds in the nation. We don't just teach; we engineer mastery.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Faculty 1 -->
+                <div class="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group gsap-scale-up hover:-translate-y-2 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-brand-500/10">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-brand-500/20 to-transparent rounded-bl-full -z-10 transition-transform duration-700 group-hover:scale-125"></div>
+                    <div class="flex flex-col sm:flex-row items-start gap-8">
+                        <div class="w-32 h-32 rounded-3xl bg-slate-200 dark:bg-slate-800 flex-shrink-0 overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 relative group-hover:border-brand-200 dark:group-hover:border-brand-800 transition-colors duration-500">
+                            <img src="https://digiadhyapak.com/static/images/team/lovaraju.jpg" alt="Dr. P. Lovaraju" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Dr. P. Lovaraju</h4>
+                            <p class="text-sm text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider mb-2">Professor & Head</p>
+                            <p class="text-slate-600 dark:text-slate-400 mb-5 font-medium">Department of Aerospace Engineering — LBRCE, Mylavaram</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">Ph.D. IIT Kanpur</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">Gas Dynamics</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">Aerodynamics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Faculty 2 -->
+                <div class="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group gsap-scale-up hover:-translate-y-2 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-xeta-500/10" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-xeta-500/20 to-transparent rounded-bl-full -z-10 transition-transform duration-700 group-hover:scale-125"></div>
+                    <div class="flex flex-col sm:flex-row items-start gap-8">
+                        <div class="w-32 h-32 rounded-3xl bg-white dark:bg-slate-800 flex-shrink-0 overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 relative group-hover:border-xeta-200 dark:group-hover:border-xeta-800 transition-colors duration-500">
+                            <img src="https://digiadhyapak.com/static/images/team/image.jpg" alt="Prof. Ethirajan Rathakrishnan" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/400x400/slate/white?text=ER'">
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-xeta-600 dark:group-hover:text-xeta-400 transition-colors">Prof. Ethirajan Rathakrishnan</h4>
+                            <p class="text-sm text-xeta-600 dark:text-xeta-400 font-bold uppercase tracking-wider mb-2">PhD Advisor</p>
+                            <p class="text-slate-600 dark:text-slate-400 mb-5 font-medium">Department of Aerospace Engineering — Indian Institute of Technology, Kanpur</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">Renowned Author</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">Fluid Mechanics</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">High-Speed Flows</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center gsap-fade-up">
+                <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold shadow-lg hover:shadow-xl transition-shadow cursor-default">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                    </span>
+                    Starting with Aerospace. Expanding to all GATE streams soon.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-32 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto mb-20 gsap-fade-up">
+                <h2 class="text-brand-600 dark:text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Enterprise LMS & Assessment</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-6">Engineered for Ultimate Performance</h3>
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Is Digi Adhyapak strictly for GATE aspirants? Absolutely not. We've built an enterprise-grade Institutional LMS. Colleges and corporates can license our platform to host courses, execute coding assessments via our proprietary Xeta Compiler, and monitor comprehensive performance analytics. It is the ultimate sandbox for knowledge acquisition and evaluation.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 feature-grid">
+                
+                <!-- Feature 1 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-16 h-16 rounded-2xl bg-brand-100 dark:bg-brand-900/50 flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-paint-brush text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Best-in-Class UI/UX</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">A meticulously crafted, clutter-free interface that prioritizes focus. Every pixel is optimized to eliminate distractions and provide a seamless, premium learning journey.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center mb-6 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-eyeglasses text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Eye-Care Reading Modes</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Long study sessions demand ergonomic design. We offer intelligent Bright, Light, and True Dark modes, specifically engineered to drastically reduce eye strain and fatigue.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/50 flex items-center justify-center mb-6 text-green-600 dark:text-green-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-chart-pie-slice text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Crystal-Clear Dashboards</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Data is power. We provide distinct dashboards: learners get real-time progress tracking, while moderators gain deep, macro-level oversight of entire cohorts.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-orange-300 dark:hover:border-orange-700 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-16 h-16 rounded-2xl bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center mb-6 text-orange-600 dark:text-orange-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-exam text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Granular Assessments</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Go beyond surface-level testing. Conduct ultra-granular chapter-wise and sub-chapter-wise assessments to ensure absolute foundational mastery before moving forward.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-xeta-300 dark:hover:border-xeta-700 transition-all duration-300 hover:-translate-y-2 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-r from-xeta-600 to-xeta-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl shadow-md">Xeta Powered</div>
+                    <div class="w-16 h-16 rounded-2xl bg-xeta-100 dark:bg-xeta-900/50 flex items-center justify-center mb-6 text-xeta-600 dark:text-xeta-400 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-code-block text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Integrated Code Compiler</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Powered by Xeta's proprietary engine, our integrated IDE allows users to execute code natively in the browser. Perfect for coding courses and live technical assessments.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-red-300 dark:hover:border-red-700 transition-all duration-300 hover:-translate-y-2 group relative overflow-hidden">
+                     <div class="absolute top-0 right-0 bg-gradient-to-r from-red-600 to-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl shadow-md">Proctorix Integration</div>
+                    <div class="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-900/50 flex items-center justify-center mb-6 text-red-600 dark:text-red-400 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-eye text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">AI Proctored Mock Tests</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Absolute exam integrity. Seamlessly integrated with Proctorix (A Xeta Product), we offer military-grade AI proctoring for highly secure online institutional assessments.</p>
+                </div>
+
+                 <!-- Feature 7 -->
+                 <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-teal-300 dark:hover:border-teal-700 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-16 h-16 rounded-2xl bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center mb-6 text-teal-600 dark:text-teal-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-target text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Effortless Moderator Tracking</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">We've simplified the workload. Educators and corporate trainers can intuitively track student engagement, completion rates, and pinpoint areas needing intervention.</p>
+                </div>
+
+                <!-- Feature 8 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center mb-6 text-purple-600 dark:text-purple-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-envelope-simple-open text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">1-Click Reporting & Mailing</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Automate your administrative overhead. Generate comprehensive reports and dispatch automated weekly or monthly performance emails to users with a single click.</p>
+                </div>
+
+                <!-- Feature 9 -->
+                <div class="feature-card p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:border-yellow-300 dark:hover:border-yellow-700 transition-all duration-300 hover:-translate-y-2 group md:col-span-2 lg:col-span-1 bg-gradient-to-br from-slate-50 to-yellow-50/50 dark:from-slate-800/40 dark:to-yellow-900/10">
+                    <div class="w-16 h-16 rounded-2xl bg-yellow-100 dark:bg-yellow-900/50 flex items-center justify-center mb-6 text-yellow-600 dark:text-yellow-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <i class="ph-duotone ph-trend-up text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Ultimate Performance Tracking</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">The ultimate diagnostic tool. Track historical performance, visualize growth curves, and utilize our analytics engine to identify core strengths and areas for immediate improvement.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem" class="py-32 relative overflow-hidden bg-slate-900 dark:bg-slate-950">
+        <!-- Abstract Background -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
+                        <path d="M0 60L60 0H30L0 30M60 60V30L30 60" stroke="currentColor" stroke-width="1" fill="none"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)" class="text-slate-400"/>
+            </svg>
+        </div>
+        
+        <!-- Glowing Orbs -->
+        <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full mix-blend-screen filter blur-[100px] transform -translate-y-1/2 animate-blob"></div>
+        <div class="absolute top-1/2 right-1/4 w-96 h-96 bg-xeta-500/20 rounded-full mix-blend-screen filter blur-[100px] transform -translate-y-1/2 animate-blob animation-delay-2000"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="flex justify-center items-center gap-6 mb-10 gsap-scale-up">
+                <div class="w-24 h-24 bg-white rounded-3xl flex items-center justify-center shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500 p-3">
+                    <img src="https://www.digiadhyapak.com/static/favicon/favicon.svg" alt="Digi Adhyapak Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="text-slate-400 animate-pulse"><i class="ph-bold ph-link text-4xl"></i></div>
+                <div class="w-24 h-24 bg-white rounded-3xl flex items-center justify-center shadow-2xl transform -rotate-6 hover:rotate-0 transition-transform duration-500 p-3">
+                    <img src="https://res.cloudinary.com/dpz44zf0z/image/upload/v1760704788/XETA_SOLUTIONS_LOGO_bcsbwh.png" alt="Xeta Solutions Logo" class="w-full h-full object-contain">
+                </div>
+            </div>
+            
+            <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6 gsap-fade-up tracking-tight">
+                An Integral Part of the <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-xeta-400 to-brand-400">Xeta Ecosystem</span>
+            </h2>
+            <p class="text-xl text-slate-300 mb-12 max-w-3xl mx-auto gsap-fade-up leading-relaxed">
+                 Digi Adhyapak doesn't stand alone. It operates synchronously with Proctorix, our flagship AI-proctoring tool, and 10+ other specialized software products. Together, they form an unbreakable chain of educational and professional empowerment.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center gsap-fade-up">
+                <a href="https://xetasolutions.in" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-full text-slate-900 bg-white hover:bg-slate-100 shadow-xl transition-all transform hover:-translate-y-1">
+                    <i class="ph-bold ph-globe-hemisphere-west mr-2 text-brand-600"></i> Explore Xeta Tech
+                </a>
+                <a href="https://proctorix.in" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-full text-white bg-slate-800 border border-slate-700 hover:bg-slate-700 shadow-xl transition-all transform hover:-translate-y-1">
+                    <i class="ph-bold ph-shield-check text-green-400 mr-2"></i> Discover Proctorix
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <img src="https://www.digiadhyapak.com/static/favicon/favicon.svg" alt="Digi Adhyapak Logo" class="h-8 w-8 grayscale opacity-70">
+                <span class="font-display font-bold text-xl text-slate-800 dark:text-slate-200">Digi Adhyapak</span>
+            </div>
+            
+            <div class="text-sm text-slate-500 text-center md:text-left">
+                &copy; <span id="year"></span> A Product of <a href="https://xetasolutions.in" target="_blank" class="font-semibold text-xeta-600 dark:text-xeta-400 hover:underline">Xeta Tech Solutions</a>. All rights reserved.
+            </div>
+
+            <div class="flex gap-4">
+                <a href="https://www.linkedin.com/company/xetatechsolutions" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-brand-100 hover:text-brand-600 transition-colors">
+                    <i class="ph-fill ph-twitter-logo text-lg"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/xetatechsolutions" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-brand-100 hover:text-brand-600 transition-colors">
+                    <i class="ph-fill ph-linkedin-logo text-lg"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/xetatechsolutions" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-brand-100 hover:text-brand-600 transition-colors">
+                    <i class="ph-fill ph-instagram-logo text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved user preference, if any, on load of the website
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // GSAP Animations
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 20) {
+                    nav.classList.add('shadow-md');
+                } else {
+                    nav.classList.remove('shadow-md');
+                }
+            });
+
+            // Hero Section Animation
+            const heroTl = gsap.timeline();
+            heroTl.fromTo(".hero-content > *", 
+                { y: 40, opacity: 0 }, 
+                { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }
+            )
+            .fromTo(".hero-image-container",
+                { x: 60, opacity: 0, scale: 0.95 },
+                { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" },
+                "-=0.8"
+            );
+
+            // Universal Fade Up for standard elements
+            gsap.utils.toArray('.gsap-fade-up').forEach(elem => {
+                gsap.fromTo(elem, 
+                    { y: 60, opacity: 0 },
+                    { 
+                        y: 0, 
+                        opacity: 1, 
+                        duration: 1, 
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // Scale Up for prominent cards (Faculty, Ecosystem Logos)
+            gsap.utils.toArray('.gsap-scale-up').forEach(elem => {
+                gsap.fromTo(elem, 
+                    { y: 40, opacity: 0, scale: 0.9 },
+                    { 
+                        y: 0, 
+                        opacity: 1, 
+                        scale: 1,
+                        duration: 0.8, 
+                        ease: "back.out(1.2)",
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // Horizontal Entry for About Section
+            gsap.fromTo(".gsap-content-left",
+                { x: -50, opacity: 0 },
+                { x: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: "#about", start: "top 80%" } }
+            );
+            gsap.fromTo(".gsap-content-right",
+                { x: 50, opacity: 0 },
+                { x: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: "#about", start: "top 80%" } }
+            );
+
+            // Feature Cards Staggered Advanced Animation
+            gsap.fromTo(".feature-card",
+                { y: 50, opacity: 0, scale: 0.95 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".feature-grid",
+                        start: "top 75%",
+                    }
+                }
+            );
+        });
+    </script>
+</body>
+</html>
