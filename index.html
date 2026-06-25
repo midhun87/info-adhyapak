@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiAdhyapak — GATEway to Guidance</title>
+    
+    <!-- Primary SEO -->
+    <meta name="description" content="DigiAdhyapak — structured GATE exam preparation with subject-wise content, chapter tests, mock exams, and performance analytics. Built by IIT-trained faculty.">
+    <meta name="keywords" content="GATE preparation, GATE exam, engineering entrance, GATE test series, GATE study material, GATE mock test, aerospace engineering, mechanical engineering">
+    <meta name="author" content="Xeta Tech Solutions">
+    <meta name="robots" content="index, follow">
+    <!-- Point canonical to the main domain to consolidate SEO authority -->
+    <link rel="canonical" href="https://digiadhyapak.com">
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#1a56db">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DigiAdhyapak">
+    <meta property="og:title" content="DigiAdhyapak — GATEway to Guidance">
+    <meta property="og:description" content="Structured GATE exam preparation matched to your branch and year. Built by IIT-trained faculty.">
+    <meta property="og:url" content="https://info.digiadhyapak.com">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lexend:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Lexend', 'sans-serif'],
+                        mono: ['Spline Sans Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#1a56db',
+                            green: '#22c55e',
+                            dark: '#0f1c2e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, #eaf1ff 1px, transparent 1px), linear-gradient(to bottom, #eaf1ff 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 20%, #000 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 20%, #000 30%, transparent 100%);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 antialiased selection:bg-brand-green selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-slate-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="https://digiadhyapak.com" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center shadow-lg shadow-brand-blue/20 transition-transform group-hover:scale-105">
+                        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" class="text-white">
+                            <rect x="13" y="8" width="13" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <line x1="19.5" y1="18" x2="19.5" y2="21" stroke="currentColor" stroke-width="2"/>
+                            <line x1="17" y1="21" x2="22" y2="21" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="10" cy="11" r="2.5" fill="#22c55e"/>
+                            <path d="M6.5 21 Q7 16 10 16 Q13 16 13.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="font-display font-bold text-xl text-brand-dark tracking-tight">
+                        <span class="text-brand-green italic">Digi</span>Adhyapak
+                    </span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="https://digiadhyapak.com/about" class="text-sm font-semibold text-slate-600 hover:text-brand-blue transition-colors">About</a>
+                    <a href="https://digiadhyapak.com/why-us" class="text-sm font-semibold text-slate-600 hover:text-brand-blue transition-colors">Why Us?</a>
+                    <a href="https://digiadhyapak.com/features" class="text-sm font-semibold text-slate-600 hover:text-brand-blue transition-colors">Features</a>
+                    <a href="https://digiadhyapak.com/faculty" class="text-sm font-semibold text-slate-600 hover:text-brand-blue transition-colors">Faculty</a>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex items-center gap-4">
+                    <a href="https://digiadhyapak.com/login" class="hidden sm:inline-flex text-sm font-bold text-brand-blue hover:text-blue-800 transition-colors">
+                        Sign in
+                    </a>
+                    <a href="https://digiadhyapak.com/signup" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white transition-all bg-brand-blue border border-transparent rounded-xl hover:bg-blue-700 hover:shadow-lg hover:shadow-brand-blue/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
+                        Get started &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 z-0 bg-grid-pattern pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-brand-blue font-mono text-xs font-bold uppercase tracking-wider mb-8 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                7-day free trial · no card needed
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold text-brand-dark tracking-tight mb-6 max-w-4xl mx-auto leading-tight">
+                From semester coursework <br class="hidden sm:block">
+                to <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-green">GATE success</span>
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Structured study material, exhaustive test series, and real exam simulation — built by IIT-trained faculty and subject experts to take you from your branch syllabus to GATE.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+                <a href="https://digiadhyapak.com/signup" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all bg-brand-blue rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-brand-blue/30 hover:-translate-y-1">
+                    Start free trial &rarr;
+                </a>
+                <a href="https://digiadhyapak.com/features" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-brand-dark transition-all bg-white border-2 border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300">
+                    Explore features
+                </a>
+            </div>
+
+            <!-- Floating Stats Card -->
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden transform transition-transform hover:scale-[1.01] duration-300 relative">
+                <!-- Decorative Corners -->
+                <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-brand-green rounded-tl-2xl opacity-50 m-2"></div>
+                <div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-brand-green rounded-br-2xl opacity-50 m-2"></div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+                    <div class="p-8 text-center group">
+                        <div class="font-mono text-4xl font-bold text-brand-dark mb-2 group-hover:scale-110 transition-transform">18+</div>
+                        <div class="text-xs font-bold text-slate-400 tracking-widest uppercase">Yrs Mentor Exp.</div>
+                    </div>
+                    <div class="p-8 text-center group">
+                        <div class="font-mono text-4xl font-bold text-brand-blue mb-2 group-hover:scale-110 transition-transform">500+</div>
+                        <div class="text-xs font-bold text-slate-400 tracking-widest uppercase">Questions</div>
+                    </div>
+                    <div class="p-8 text-center group">
+                        <div class="font-mono text-4xl font-bold text-brand-green mb-2 group-hover:scale-110 transition-transform">IIT</div>
+                        <div class="text-xs font-bold text-slate-400 tracking-widest uppercase">Trained Faculty</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Strip Section -->
+    <section class="py-12 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-16">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-xl shadow-inner">🎓</div>
+                    <div class="text-sm text-slate-600">Mentored by <br><strong class="text-brand-dark">Dr. P. Lovaraju</strong>, IIT Kanpur PhD</div>
+                </div>
+                <div class="hidden md:block w-px h-12 bg-slate-200"></div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-xl shadow-inner">🏛️</div>
+                    <div class="text-sm text-slate-600">Built by <br><strong class="text-brand-dark">LBRCE</strong> AI & Data Science alumni</div>
+                </div>
+                <div class="hidden md:block w-px h-12 bg-slate-200"></div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-xl shadow-inner">⚙️</div>
+                    <div class="text-sm text-slate-600">Engineered by <br><strong class="text-brand-dark">Xeta Tech Solutions</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-blue font-mono font-bold text-xs tracking-widest uppercase bg-blue-100 px-3 py-1 rounded-full">How It Works</span>
+                <h2 class="mt-6 font-display text-3xl sm:text-4xl font-bold text-brand-dark">A simple loop: study, test, improve</h2>
+                <p class="mt-4 text-lg text-slate-600">Three clear steps, repeated until you conquer the exam day.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden group hover:shadow-xl hover:border-brand-blue/30 transition-all duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-50 rounded-full z-0 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-brand-blue text-white rounded-2xl flex items-center justify-center font-mono text-2xl font-bold mb-6 shadow-md shadow-brand-blue/20">1</div>
+                        <h3 class="font-display text-xl font-bold text-brand-dark mb-3">Study structured content</h3>
+                        <p class="text-slate-600 leading-relaxed">Chapter-wise notes and video lectures, perfectly matched to your specific branch and academic year.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden group hover:shadow-xl hover:border-brand-green/30 transition-all duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-green-50 rounded-full z-0 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-brand-green text-white rounded-2xl flex items-center justify-center font-mono text-2xl font-bold mb-6 shadow-md shadow-brand-green/20">2</div>
+                        <h3 class="font-display text-xl font-bold text-brand-dark mb-3">Test like the real exam</h3>
+                        <p class="text-slate-600 leading-relaxed">Subchapter, chapter, and full mock tests strictly built to mirror the actual GATE pattern and difficulty.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden group hover:shadow-xl hover:border-purple-300 transition-all duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-purple-50 rounded-full z-0 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-slate-800 text-white rounded-2xl flex items-center justify-center font-mono text-2xl font-bold mb-6 shadow-md shadow-slate-800/20">3</div>
+                        <h3 class="font-display text-xl font-bold text-brand-dark mb-3">See where you stand</h3>
+                        <p class="text-slate-600 leading-relaxed">Detailed score trends, performance analytics, and a live leaderboard to give your next session a clear target.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore Teaser Grid -->
+    <section class="py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <span class="text-brand-green font-mono font-bold text-xs tracking-widest uppercase bg-green-100 px-3 py-1 rounded-full">Explore Platform</span>
+                <h2 class="mt-6 font-display text-3xl sm:text-4xl font-bold text-brand-dark">Everything you need to know</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-2xl">Discover our mission, the experts behind the scenes, and what makes DigiAdhyapak the ultimate prep companion.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <a href="https://digiadhyapak.com/about" class="block p-8 bg-white border border-slate-200 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group relative">
+                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mb-6">📖</div>
+                    <h3 class="font-display text-lg font-bold text-brand-dark mb-2">About DigiAdhyapak</h3>
+                    <p class="text-sm text-slate-600 mb-6">Our mission and the learning ecosystem we've built for ambitious GATE aspirants.</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+                        <span>Our story</span>
+                        <span class="text-lg group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="https://digiadhyapak.com/why-us" class="block p-8 bg-white border border-slate-200 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-yellow-200 transition-all duration-300 group relative">
+                    <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-2xl mb-6">🎯</div>
+                    <h3 class="font-display text-lg font-bold text-brand-dark mb-2">Why DigiAdhyapak?</h3>
+                    <p class="text-sm text-slate-600 mb-6">What makes our academic approach different — and who it is specifically engineered for.</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+                        <span>vs. typical prep</span>
+                        <span class="text-lg group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="https://digiadhyapak.com/features" class="block p-8 bg-white border border-slate-200 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-green-200 transition-all duration-300 group relative">
+                    <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-2xl mb-6">⚡</div>
+                    <h3 class="font-display text-lg font-bold text-brand-dark mb-2">Features</h3>
+                    <p class="text-sm text-slate-600 mb-6">Deep dive into study resources, test series, detailed analytics, and platform tools.</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+                        <span>6 core features</span>
+                        <span class="text-lg group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Card 4 -->
+                <a href="https://digiadhyapak.com/faculty" class="block p-8 bg-white border border-slate-200 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-purple-200 transition-all duration-300 group relative">
+                    <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-2xl mb-6">🎓</div>
+                    <h3 class="font-display text-lg font-bold text-brand-dark mb-2">Expert Faculty</h3>
+                    <p class="text-sm text-slate-600 mb-6">Meet the highly qualified academic mentors shaping our content and direction.</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+                        <span>IIT-linked mentors</span>
+                        <span class="text-lg group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Card 5 -->
+                <a href="https://digiadhyapak.com/company" class="block p-8 bg-white border border-slate-200 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-pink-200 transition-all duration-300 group relative">
+                    <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-2xl mb-6">🏢</div>
+                    <h3 class="font-display text-lg font-bold text-brand-dark mb-2">Company</h3>
+                    <p class="text-sm text-slate-600 mb-6">Built by Xeta Tech Solutions — the engineering team powering DigiAdhyapak.</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+                        <span>Product ecosystem</span>
+                        <span class="text-lg group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Card 6 -->
+                <a href="https://digiadhyapak.com/developers" class="block p-8 bg-white border border-slate-200 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-cyan-200 transition-all duration-300 group relative">
+                    <div class="w-12 h-12 bg-cyan-50 rounded-xl flex items-center justify-center text-2xl mb-6">👨‍💻</div>
+                    <h3 class="font-display text-lg font-bold text-brand-dark mb-2">Developers</h3>
+                    <p class="text-sm text-slate-600 mb-6">The founder and co-founder dedicated to building and maintaining the platform.</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+                        <span>Cloud Certified</span>
+                        <span class="text-lg group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-dark rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl">
+                <!-- Decorative Glow -->
+                <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-green/20 blur-3xl rounded-full mix-blend-screen pointer-events-none"></div>
+                <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-blue/30 blur-3xl rounded-full mix-blend-screen pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-6">Ready to start your GATE journey?</h2>
+                    <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">Join DigiAdhyapak today and transform your preparation with structure, strategy, and expert guidance.</p>
+                    
+                    <a href="https://digiadhyapak.com/signup" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-brand-dark transition-all bg-white rounded-xl hover:bg-slate-100 hover:shadow-lg hover:-translate-y-1">
+                        Create free account &rarr;
+                    </a>
+                    
+                    <p class="mt-6 font-mono text-xs text-slate-400 uppercase tracking-wider">
+                        7-day free trial · No credit card required
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" class="text-brand-blue">
+                    <rect width="32" height="32" rx="8" fill="currentColor"/>
+                    <rect x="13" y="8" width="13" height="10" rx="1.5" fill="none" stroke="#fff" stroke-width="1.5"/>
+                    <line x1="19.5" y1="18" x2="19.5" y2="21" stroke="#fff" stroke-width="1.5"/>
+                    <line x1="17" y1="21" x2="22" y2="21" stroke="#fff" stroke-width="1.5"/>
+                    <circle cx="10" cy="11" r="2.5" fill="#22c55e"/>
+                    <path d="M6.5 21 Q7 16 10 16 Q13 16 13.5 21" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span class="font-display font-bold text-lg text-brand-dark">
+                    <span class="text-brand-green italic">Digi</span>Adhyapak
+                </span>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 mb-8">
+                <a href="https://digiadhyapak.com/about" class="text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors">About</a>
+                <a href="https://digiadhyapak.com/why-us" class="text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors">Why Us?</a>
+                <a href="https://digiadhyapak.com/features" class="text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors">Features</a>
+                <a href="https://digiadhyapak.com/faculty" class="text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors">Faculty</a>
+                <a href="https://digiadhyapak.com/company" class="text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors">Company</a>
+                <a href="https://digiadhyapak.com/developers" class="text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors">Developers</a>
+            </div>
+
+            <div class="text-xs text-slate-400">
+                Developed by <a href="https://xetasolutions.in" target="_blank" class="font-semibold text-slate-600 hover:text-brand-blue transition-colors">Xeta Tech Solutions</a> · © 2026 DigiAdhyapak. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
